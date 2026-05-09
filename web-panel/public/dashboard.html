@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <div class="logo">
+        <span class="logo-mine">Mine</span><span class="logo-ddoss">DDoS</span>
+      </div>
+      <nav>
+        <button class="nav-btn active" onclick="showTab('overview')" id="tab-overview">Обзор</button>
+        <button class="nav-btn" onclick="showTab('control')" id="tab-control">Атака</button>
+        <button class="nav-btn" onclick="showTab('manual')" id="tab-manual">Ручное управление</button>
+        <button class="nav-btn" onclick="showTab('logs')" id="tab-logs">Логи</button>
+      </nav>
+      <button class="nav-btn logout-btn" onclick="logout()">Выйти</button>
+    </aside>
+
+    <main class="content">
+      <div class="tab-content active" id="overview">
+        <h1><span>/</span> Обзор</h1>
+        <div class="stats-grid">
+          <div class="stat-card"><span class="stat-label">Статус</span><span class="stat-value" id="status-text">Остановлен</span></div>
+          <div class="stat-card"><span class="stat-label">Всего ботов</span><span class="stat-value" id="total-bots">0</span></div>
+          <div class="stat-card"><span class="stat-label">Онлайн</span><span class="stat-value" id="online-bots">0</span></div>
+          <div class="stat-card"><span class="stat-label">Кикнуто</span><span class="stat-value" id="kicked-bots">0</span></div>
+          <div class="stat-card"><span class="stat-label">Отправлено сообщений</span><span class="stat-value" id="messages-sent">0</span></div>
+          <div class="stat-card"><span class="stat-label">Ошибок</span><span class="stat-value" id="errors-count">0</span></div>
+          <div class="stat-card"><span class="stat-label">Аптайм</span><span class="stat-value" id="uptime">0s</span></div>
+        </div>
+        <div class="chart-container"><canvas id="onlineChart"></canvas></div>
+      </div>
+
+      <div class="tab-content" id="control">
+        <h1><span>/</span> Атака</h1>
+        <div class="control-group">
+          <button class="btn-start" onclick="startBots()">Запустить атаку</button>
+          <button class="btn-stop" onclick="stopBots()">Остановить всех</button>
+        </div>
+        <h2>Параметры</h2>
+        <div class="form-grid">
+          <div class="form-group"><label>Сервер (host)</label><input type="text" id="cfg-host" placeholder="localhost"></div>
+          <div class="form-group"><label>Порт</label><input type="number" id="cfg-port" placeholder="19132"></div>
+          <div class="form-group"><label>Версия</label>
+            <select id="cfg-version">
+              <option value="1.16.201">1.16.201</option>
+              <option value="1.16.210">1.16.210</option>
+              <option value="1.16.220">1.16.220</option>
+              <option value="1.17.0">1.17.0</option>
+              <option value="1.17.10">1.17.10</option>
+              <option value="1.17.30">1.17.30</option>
+              <option value="1.17.40">1.17.40</option>
+              <option value="1.18.0">1.18.0</option>
+              <option value="1.18.11">1.18.11</option>
+              <option value="1.18.30">1.18.30</option>
+              <option value="1.19.1">1.19.1</option>
+              <option value="1.19.10">1.19.10</option>
+              <option value="1.19.20">1.19.20</option>
+              <option value="1.19.21">1.19.21</option>
+              <option value="1.19.30">1.19.30</option>
+              <option value="1.19.40">1.19.40</option>
+              <option value="1.19.41">1.19.41</option>
+              <option value="1.19.50">1.19.50</option>
+              <option value="1.19.60">1.19.60</option>
+              <option value="1.19.62">1.19.62</option>
+              <option value="1.19.63">1.19.63</option>
+              <option value="1.19.70">1.19.70</option>
+              <option value="1.19.80">1.19.80</option>
+              <option value="1.20.0">1.20.0</option>
+              <option value="1.20.10">1.20.10</option>
+              <option value="1.20.30">1.20.30</option>
+              <option value="1.20.40">1.20.40</option>
+              <option value="1.20.50">1.20.50</option>
+              <option value="1.20.61">1.20.61</option>
+              <option value="1.20.71">1.20.71</option>
+              <option value="1.20.80">1.20.80</option>
+              <option value="1.21.0">1.21.0</option>
+              <option value="1.21.2">1.21.2</option>
+              <option value="1.21.21">1.21.21</option>
+              <option value="1.21.30">1.21.30</option>
+              <option value="1.21.42">1.21.42</option>
+              <option value="1.21.50">1.21.50</option>
+              <option value="1.21.60">1.21.60</option>
+              <option value="1.21.70">1.21.70</option>
+              <option value="1.21.80">1.21.80</option>
+              <option value="1.21.90">1.21.90</option>
+              <option value="1.21.93">1.21.93</option>
+              <option value="1.21.100">1.21.100</option>
+              <option value="1.21.111">1.21.111</option>
+              <option value="1.21.120">1.21.120</option>
+              <option value="1.21.124">1.21.124</option>
+              <option value="1.21.130">1.21.130</option>
+              <option value="1.26.0">1.26.0</option>
+              <option value="1.26.10">1.26.10</option>
+              <option value="1.26.20">1.26.20</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Base Username</label><input type="text" id="cfg-username" placeholder="Bot"></div>
+          <div class="form-group"><label>Количество ботов</label><input type="number" id="cfg-count" placeholder="10"></div>
+          <div class="form-group"><label>Потоков</label><input type="number" id="cfg-threads" placeholder="1"></div>
+          <div class="form-group"><label>Задержка (сек)</label><input type="number" id="cfg-delay" placeholder="1" step="0.1"></div>
+          <div class="form-group"><label>Фин. задержка (сек)</label><input type="number" id="cfg-final-delay" placeholder="30"></div>
+        </div>
+        <h2>Сообщения</h2>
+        <div class="messages-editor">
+          <div id="messages-list"></div>
+          <div class="msg-controls">
+            <input type="text" id="new-message" placeholder="Новое сообщение">
+            <button onclick="addMessage()">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="manual">
+        <h1><span>/</span> Ручное управление</h1>
+        <div class="manual-control-form">
+          <div class="form-group"><label>Имя бота</label><input type="text" id="manual-username" placeholder="Bot"></div>
+          <div class="form-group"><label>Сервер (host)</label><input type="text" id="manual-host" placeholder="localhost"></div>
+          <div class="form-group"><label>Порт</label><input type="number" id="manual-port" placeholder="19132"></div>
+          <div class="form-group"><label>Версия</label>
+            <select id="manual-version">
+              <option value="1.16.201">1.16.201</option>
+              <option value="1.16.210">1.16.210</option>
+              <option value="1.16.220">1.16.220</option>
+              <option value="1.17.0">1.17.0</option>
+              <option value="1.17.10">1.17.10</option>
+              <option value="1.17.30">1.17.30</option>
+              <option value="1.17.40">1.17.40</option>
+              <option value="1.18.0">1.18.0</option>
+              <option value="1.18.11">1.18.11</option>
+              <option value="1.18.30">1.18.30</option>
+              <option value="1.19.1">1.19.1</option>
+              <option value="1.19.10">1.19.10</option>
+              <option value="1.19.20">1.19.20</option>
+              <option value="1.19.21">1.19.21</option>
+              <option value="1.19.30">1.19.30</option>
+              <option value="1.19.40">1.19.40</option>
+              <option value="1.19.41">1.19.41</option>
+              <option value="1.19.50">1.19.50</option>
+              <option value="1.19.60">1.19.60</option>
+              <option value="1.19.62">1.19.62</option>
+              <option value="1.19.63">1.19.63</option>
+              <option value="1.19.70">1.19.70</option>
+              <option value="1.19.80">1.19.80</option>
+              <option value="1.20.0">1.20.0</option>
+              <option value="1.20.10">1.20.10</option>
+              <option value="1.20.30">1.20.30</option>
+              <option value="1.20.40">1.20.40</option>
+              <option value="1.20.50">1.20.50</option>
+              <option value="1.20.61">1.20.61</option>
+              <option value="1.20.71">1.20.71</option>
+              <option value="1.20.80">1.20.80</option>
+              <option value="1.21.0">1.21.0</option>
+              <option value="1.21.2">1.21.2</option>
+              <option value="1.21.21">1.21.21</option>
+              <option value="1.21.30">1.21.30</option>
+              <option value="1.21.42">1.21.42</option>
+              <option value="1.21.50">1.21.50</option>
+              <option value="1.21.60">1.21.60</option>
+              <option value="1.21.70">1.21.70</option>
+              <option value="1.21.80">1.21.80</option>
+              <option value="1.21.90">1.21.90</option>
+              <option value="1.21.93">1.21.93</option>
+              <option value="1.21.100">1.21.100</option>
+              <option value="1.21.111">1.21.111</option>
+              <option value="1.21.120">1.21.120</option>
+              <option value="1.21.124">1.21.124</option>
+              <option value="1.21.130">1.21.130</option>
+              <option value="1.26.0">1.26.0</option>
+              <option value="1.26.10">1.26.10</option>
+              <option value="1.26.20">1.26.20</option>
+            </select>
+          </div>
+          <div class="form-group"><label>При входе</label><input type="text" id="manual-joinmsg" placeholder=""></div>
+          <button class="btn-connect" onclick="connectManualBot()">Подключить</button>
+          <button class="btn-disconnect" onclick="disconnectManualBot()">Отключить</button>
+        </div>
+        <div class="connection-status">
+          <span class="status-dot disconnected" id="manual-status-dot"></span>
+          <span id="manual-status-text">Не подключён</span>
+        </div>
+        <div class="chat-layout">
+          <div class="chat-panel">
+            <div class="chat-header">Чат сервера</div>
+            <div class="chat-messages" id="server-chat"></div>
+          </div>
+          <div class="chat-panel">
+            <div class="chat-header">Команды / Сообщения</div>
+            <div class="chat-messages" id="command-chat"></div>
+            <div class="chat-input-area">
+              <input type="text" id="command-input" placeholder="Напишите сообщение..." onkeypress="if(event.key==='Enter') sendCommand()">
+              <button onclick="sendCommand()">Отправить</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="logs">
+        <h1><span>/</span> Логи</h1>
+        <div class="log-controls"><button onclick="clearLogs()">Очистить</button></div>
+        <div class="log-container" id="log-container"></div>
+      </div>
+    </main>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>

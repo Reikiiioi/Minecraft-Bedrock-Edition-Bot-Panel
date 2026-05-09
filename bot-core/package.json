@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "bedrock-protocol": "^3.52.0"
+  }
+}

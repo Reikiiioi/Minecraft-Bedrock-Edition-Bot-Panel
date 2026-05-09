@@ -1,0 +1,20 @@
+{
+  "panel": {
+    "port": 3000,
+    "passwordHash": "CHANGE_ME",
+    "sessionSecret": "CHANGE_ME"
+  },
+  "botDefaults": {
+    "host": "localhost",
+    "port": 19132,
+    "version": "1.20.80",
+    "baseUsername": "Bot",
+    "count": 10,
+    "threadCount": 1,
+    "delayBetweenBotsSeconds": 1,
+    "finalDelaySeconds": 30,
+    "messages": [
+      "Hello!"
+    ]
+  }
+}

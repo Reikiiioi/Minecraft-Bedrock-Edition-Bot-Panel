@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Панель управления</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <div class="logo">
+        <span class="logo-mine">Mine</span><span class="logo-ddoss">DDoS</span>
+      </div>
+      <p class="subtitle">Bot Control Panel</p>
+      <div class="input-group">
+        <input type="password" id="passwordInput" placeholder="Пароль" autocomplete="off">
+      </div>
+      <button onclick="login()">Войти</button>
+      <p id="loginError" class="error"></p>
+    </div>
+  </div>
+
+  <script>
+    async function login() {
+      const password = document.getElementById('passwordInput').value;
+      const errorEl = document.getElementById('loginError');
+      if (!password) {
+        errorEl.textContent = 'Введите пароль';
+        return;
+      }
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password })
+        });
+        const data = await res.json();
+        if (data.success) {
+          localStorage.setItem('token', data.token);
+          window.location.href = '/dashboard.html';
+        } else {
+          errorEl.textContent = data.error || 'Ошибка входа';
+        }
+      } catch (e) {
+        errorEl.textContent = 'Ошибка соединения с сервером';
+      }
+    }
+    document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') login();
+    });
+    if (localStorage.getItem('token') === 'auth_ok') {
+      window.location.href = '/dashboard.html';
+    }
+  </script>
+</body>
+</html>

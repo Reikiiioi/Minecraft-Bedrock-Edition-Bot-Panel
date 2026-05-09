@@ -1,0 +1,19 @@
+{
+  "server": {
+    "host": "localhost",
+    "port": 19132,
+    "version": "1.20.80"
+  },
+  "bot": {
+    "baseUsername": "Bot",
+    "count": 10,
+    "threadCount": 1
+  },
+  "timing": {
+    "delayBetweenBotsSeconds": 1,
+    "finalDelaySeconds": 30
+  },
+  "messages": [
+    "Hello!"
+  ]
+}
