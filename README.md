@@ -1,4 +1,4 @@
-# bot-ddos
+# Bot Panel
 
 Панель управления для массового подключения Minecraft Bedrock ботов к серверу.
 
