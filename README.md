@@ -4,7 +4,7 @@
 
 Автор: Reikiiioi
 
-![preview](photo.jpeg)
+![preview](photo/chat.jpeg)
 
 ## Структура проекта
 
