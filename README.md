@@ -5,10 +5,20 @@
 Автор: Reikiiioi
 
 - Чат
-![preview](photo/chat.jpeg)
+![preview](photo/Chat.jpeg)
 
-- Панель
-![preview](photo/panel.jpeg)
+## Панель
+
+![preview](photo/Panel.jpeg)
+
+- Монитор
+![preview](photo/Monitor.jpeg)
+
+- Атака
+![preview](photo/Attack.jpeg)
+
+- Ручное управление
+![preview](photo/ManualControl.jpeg)
 
 
 ## Структура проекта
