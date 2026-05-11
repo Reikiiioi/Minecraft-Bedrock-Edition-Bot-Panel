@@ -4,7 +4,12 @@
 
 Автор: Reikiiioi
 
+- Чат
 ![preview](photo/chat.jpeg)
+
+- Панель
+![preview](photo/panel.jpeg)
+
 
 ## Структура проекта
 
