@@ -21,32 +21,6 @@
 ![preview](photo/ManualControl.jpeg)
 
 
-## Структура проекта
-
-```
-bot-ddos/
-  .gitignore
-  LICENSE
-  README.md
-  photo.jpeg
-  start.js
-  bot-core/
-    bot.js
-    config.json
-    package.json
-  web-panel/
-    server.js
-    bot_controller.js
-    single_bot.js
-    setup.js
-    config.json
-    package.json
-    public/
-      index.html
-      dashboard.html
-      app.js
-      style.css
-```
 
 ### bot-core
 
