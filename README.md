@@ -142,24 +142,21 @@ BotMCBE-RU/
 ├── 🧠 bot-core/             # Ядро ботов
 │   ├── bot.js               #   Логика подключения к серверу
 │   ├── config.json          #   Конфигурация ботов
-│   ├── bot.log              #   Логи ботов
 │   └── package.json         #   Зависимости (bedrock-protocol)
 │
 ├── 🌐 web-panel/            # Веб-панель управления
-│   ├── server.js            #   Express + Socket.IO сервер
-│   ├── bot_controller.js    #   Контроллер массового запуска
-│   ├── single_bot.js        #   Управление одним ботом
-│   ├── setup.js             #   Смена пароля (с автоустановкой bcryptjs)
-│   ├── config.json          #   Настройки панели
-│   ├── package.json         #   Зависимости панели
-│   │
-│   └── 📂 public/           # Фронтенд (HTML/CSS/JS)
-│       ├── index.html       #   Страница логина
-│       ├── dashboard.html   #   Панель управления
-│       ├── app.js           #   Клиентский код
-│       └── style.css        #   Тёмная тема
-│
-└── 📁 photo/                # Скриншоты
+    ├── server.js            #   Express + Socket.IO сервер
+    ├── bot_controller.js    #   Контроллер массового запуска
+    ├── single_bot.js        #   Управление одним ботом
+    ├── setup.js             #   Смена пароля (с автоустановкой bcryptjs)
+    ├── config.json          #   Настройки панели
+    ├── package.json         #   Зависимости панели
+    │
+    └── 📂 public/           # Фронтенд (HTML/CSS/JS)
+        ├── index.html       #   Страница логина
+        ├── dashboard.html   #   Панель управления
+        ├── app.js           #   Клиентский код
+        └── style.css        #   Тёмная тема
 ```
 
 ---
