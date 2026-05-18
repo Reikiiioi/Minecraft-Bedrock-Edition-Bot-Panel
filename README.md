@@ -247,6 +247,7 @@ node setup.js
 | ❌ Порт 3000 занят | Смени порт в `web-panel/config.json` (`panel.port`) |
 | ❌ Ошибка `EACCES` (Linux/macOS) | Не запускай через sudo. Используй порт >1024 или npx |
 | ❌ Боты не подключаются | Проверь host/port, версию Minecraft, не заблокирован ли IP |
+| ❌ Ошибка в ручном управлении | Используй `npm install bedrock-protocol@latest` |
 
 ---
 
