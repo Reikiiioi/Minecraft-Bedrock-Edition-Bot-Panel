@@ -139,12 +139,12 @@ BotMCBE-RU/
 ├── 📄 start.sh              # Скрипт для Linux / macOS
 ├── 📄 package.json          # Корневые зависимости
 │
-├── 🧠 bot-core/             # Ядро ботов
+├─── 🧠 bot-core/             # Ядро ботов
 │   ├── bot.js               #   Логика подключения к серверу
 │   ├── config.json          #   Конфигурация ботов
 │   └── package.json         #   Зависимости (bedrock-protocol)
 │
-├── 🌐 web-panel/            # Веб-панель управления
+└─── 🌐 web-panel/            # Веб-панель управления
     ├── server.js            #   Express + Socket.IO сервер
     ├── bot_controller.js    #   Контроллер массового запуска
     ├── single_bot.js        #   Управление одним ботом
