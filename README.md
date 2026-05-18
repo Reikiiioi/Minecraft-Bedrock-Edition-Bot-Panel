@@ -1,79 +1,172 @@
-# Bot Panel
-
-Панель управления для массового подключения Minecraft Bedrock ботов к серверу.
-
-Автор: Reikiiioi
-
-- Чат
-![preview](photo/Chat.jpeg)
-
-## Панель
-
-![preview](photo/Panel.jpeg)
-
-- Монитор
-![preview](photo/Monitor.jpeg)
-
-- Атака
-![preview](photo/Attack.jpeg)
-
-- Ручное управление
-![preview](photo/ManualControl.jpeg)
-
-
-
-### bot-core
-
-Ядро ботов. Содержит логику подключения к Minecraft Bedrock серверу через bedrock-protocol. Запускает ботов в worker threads для параллельной работы.
-
-- `bot.js` -- Главный файл. Создает ботов, подключается к серверу, отправляет сообщения. Работает как main thread (координатор) и как worker thread (боты).
-- `config.json` -- Конфигурация: сервер, порт, версия, количество ботов, сообщения. Перезаписывается панелью при старте атаки.
-
-### web-panel
-
-Веб-панель управления на Express + Socket.IO.
-
-- `server.js` -- Сервер. Отдает статику, API логина/конфига, Socket.IO для реального времени.
-- `bot_controller.js` -- Контроллер массового запуска. Спавнит bot.js как child process, парсит его stdout/stderr для статистики.
-- `single_bot.js` -- Класс для ручного управления одним ботом (подключение, отправка сообщений, чтение чата).
-- `setup.js` -- Интерактивный скрипт для генерации bcrypt пароля и sessionSecret.
-- `config.json` -- Настройки панели: порт, хеш пароля, секрет, дефолтные параметры ботов.
-
-### public (фронтенд)
-
-Чистый HTML/CSS/JS без фреймворков.
-
-- `index.html` -- Страница логина. Отправляет пароль на /api/login, получает токен, сохраняет в localStorage.
-- `dashboard.html` -- Панель управления. 4 вкладки: обзор, атака, ручное управление, логи.
-- `app.js` -- Весь клиентский код: сокеты, графики Chart.js, управление ботами, чат, логгирование.
-- `style.css` -- Тёмная тема, сетка статистики, чат, адаптив под мобилки.
+<div align="center">
+  <img src="photo/Panel.jpeg" alt="Bot Panel" width="600" style="border-radius: 12px;" />
+  
+  # ⚡ MineDDoS Bot Panel
+  
+  **Массовое подключение Minecraft Bedrock ботов к серверу**
+  
+  <p>
+    <img src="https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white" alt="Node.js" />
+    <img src="https://img.shields.io/badge/Platform-Win%20%7C%20Linux%20%7C%20macOS-0078D4" alt="Platform" />
+    <img src="https://img.shields.io/badge/Minecraft-Bedrock-00AA00?logo=minecraft" alt="Minecraft" />
+    <img src="https://img.shields.io/badge/License-MIT-yellow" alt="License" />
+    <img src="https://img.shields.io/badge/Author-Reikiiioi-ff69b4" alt="Author" />
+  </p>
+</div>
 
 ---
 
-## Быстрый старт
+## 📋 Оглавление
 
-Запускаешь один файл, он сам делает всё остальное:
+- [📸 Скриншоты](#-скриншоты)
+- [🚀 Быстрый старт](#-быстрый-старт)
+- [📁 Структура проекта](#-структура-проекта)
+- [⚙️ Настройка](#️-настройка)
+- [🛡️ Безопасность](#️-безопасность)
+- [❓ Возможные проблемы](#-возможные-проблемы)
+- [📜 Лицензия](#-лицензия)
+
+---
+
+## 📸 Скриншоты
+
+<div align="center">
+  <table>
+    <tr>
+      <td><img src="photo/Panel.jpeg" width="250" alt="Панель" /></td>
+      <td><img src="photo/Monitor.jpeg" width="250" alt="Монитор" /></td>
+      <td><img src="photo/Attack.jpeg" width="250" alt="Атака" /></td>
+    </tr>
+    <tr align="center">
+      <td>📊 Панель</td>
+      <td>📈 Монитор</td>
+      <td>⚔️ Атака</td>
+    </tr>
+    <tr>
+      <td><img src="photo/Chat.jpeg" width="250" alt="Чат" /></td>
+      <td><img src="photo/ManualControl.jpeg" width="250" alt="Ручное управление" /></td>
+      <td></td>
+    </tr>
+    <tr align="center">
+      <td>💬 Чат</td>
+      <td>🎮 Ручное управление</td>
+      <td></td>
+    </tr>
+  </table>
+</div>
+
+---
+
+## 🚀 Быстрый старт
+
+### 🔧 Требования
+
+| Компонент   | Версия     | Скачать                                |
+|-------------|------------|----------------------------------------|
+| **Node.js** | v18 или выше | [nodejs.org](https://nodejs.org)     |
+| **npm**     | встроен в Node.js | —                                   |
+
+Поддерживаемые ОС: **Windows** · **Linux** · **macOS**
+
+---
+
+### 💻 Запуск одной командой
+
+Выбери скрипт под свою ОС:
+
+<table>
+  <thead>
+    <tr>
+      <th>ОС</th>
+      <th>Скрипт</th>
+      <th>Как запустить</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Windows</b></td>
+      <td><code>start.bat</code></td>
+      <td>Двойной клик по файлу</td>
+    </tr>
+    <tr>
+      <td><b>Windows</b> (PowerShell)</td>
+      <td><code>start.ps1</code></td>
+      <td>ПКМ → Запуск в PowerShell</td>
+    </tr>
+    <tr>
+      <td><b>Linux</b></td>
+      <td><code>start.sh</code></td>
+      <td><code>chmod +x start.sh && ./start.sh</code></td>
+    </tr>
+    <tr>
+      <td><b>macOS</b></td>
+      <td><code>start.sh</code></td>
+      <td><code>chmod +x start.sh && ./start.sh</code></td>
+    </tr>
+  </tbody>
+</table>
+
+Скрипт сам проверит Node.js, установит зависимости и запустит панель.
+
+---
+
+### 📦 Ручной запуск
 
 ```bash
-cd bot-ddos
+cd BotMCBE-RU
 node start.js
 ```
 
-При первом запуске start.js:
-- Устанавливает зависимости в bot-core и web-panel
-- Спрашивает пароль для входа в панель
-- Генерирует sessionSecret
-- Запускает веб-сервер
+**При первом запуске** start.js сделает всё автоматически:
+1. Установит зависимости в `bot-core` и `web-panel`
+2. Запросит пароль для входа в панель
+3. Сгенерирует sessionSecret
+4. Запустит веб-сервер
 
-При повторных запусках просто стартует панель.
+**При повторных запусках** просто стартует панель.
 
-Панель на http://127.0.0.1:3000
+🌐 **Панель доступна по адресу:** `http://127.0.0.1:3000`
 
 ---
 
-## Настройка конфигов
+## 📁 Структура проекта
 
-### web-panel/config.json
+```
+BotMCBE-RU/
+├── 📄 start.js              # Точка входа (автоустановка + запуск)
+├── 📄 start.bat             # Скрипт для Windows CMD
+├── 📄 start.ps1             # Скрипт для Windows PowerShell
+├── 📄 start.sh              # Скрипт для Linux / macOS
+├── 📄 package.json          # Корневые зависимости
+│
+├── 🧠 bot-core/             # Ядро ботов
+│   ├── bot.js               #   Логика подключения к серверу
+│   ├── config.json          #   Конфигурация ботов
+│   ├── bot.log              #   Логи ботов
+│   └── package.json         #   Зависимости (bedrock-protocol)
+│
+├── 🌐 web-panel/            # Веб-панель управления
+│   ├── server.js            #   Express + Socket.IO сервер
+│   ├── bot_controller.js    #   Контроллер массового запуска
+│   ├── single_bot.js        #   Управление одним ботом
+│   ├── setup.js             #   Смена пароля (с автоустановкой bcryptjs)
+│   ├── config.json          #   Настройки панели
+│   ├── package.json         #   Зависимости панели
+│   │
+│   └── 📂 public/           # Фронтенд (HTML/CSS/JS)
+│       ├── index.html       #   Страница логина
+│       ├── dashboard.html   #   Панель управления
+│       ├── app.js           #   Клиентский код
+│       └── style.css        #   Тёмная тема
+│
+└── 📁 photo/                # Скриншоты
+```
+
+---
+
+## ⚙️ Настройка
+
+### 🔧 web-panel/config.json
 
 ```json
 {
@@ -96,11 +189,13 @@ node start.js
 }
 ```
 
-**Важно:** bot-core/config.json полностью перезаписывается при запуске атаки через панель. Параметры берутся из botDefaults.
+> ⚠️ **Важно:** `bot-core/config.json` полностью перезаписывается при запуске атаки через панель. Параметры берутся из `botDefaults`.
 
-### Смена пароля
+---
 
-Через API:
+### 🔑 Смена пароля
+
+**Способ 1** — через веб-интерфейс (API):
 
 ```
 POST /api/change-password
@@ -113,25 +208,66 @@ Content-Type: application/json
 }
 ```
 
-Либо отредактировать web-panel/config.json вручную и перезапустить сервер.
+**Способ 2** — через скрипт setup.js:
+
+```bash
+cd BotMCBE-RU/web-panel
+node setup.js
+```
+
+> setup.js автоматически установит bcryptjs, если его нет.
+
+**Способ 3** — вручную отредактировать `web-panel/config.json` и перезапустить сервер.
 
 ---
 
-## Безопасность
+### 📋 Команды npm (web-panel)
 
-- Панель слушает только 127.0.0.1
-- Для удаленного доступа -- reverse proxy (nginx, Caddy) с HTTPS
-- sessionSecret должен быть уникальным для каждой установки
-- Рекомендуется менять пароль после первого входа
+| Команда          | Описание                             |
+|------------------|--------------------------------------|
+| `npm start`      | Запуск сервера                       |
+| `npm run setup`  | Генерация пароля и sessionSecret     |
 
-## Команды npm (web-panel)
+---
 
-| Команда        | Описание                        |
-|----------------|----------------------------------|
-| npm start      | Запуск сервера                   |
-| npm run setup  | Генерация пароля и sessionSecret |
-## Лицензия
+## 🛡️ Безопасность
 
-MIT License. Полный текст в файле LICENSE.
+| Мера | Описание |
+|------|----------|
+| 🔒 Панель слушает только **127.0.0.1** | Локальный доступ |
+| 🔐 Уникальный `sessionSecret` для каждой установки | Генерируется автоматически |
+| 🔑 Хеширование пароля через bcrypt | Пароль не хранится в открытом виде |
+| 🌐 Для удаленного доступа — reverse proxy с HTTPS | Рекомендуется nginx / Caddy |
+
+---
+
+## ❓ Возможные проблемы
+
+| Проблема | Решение |
+|----------|---------|
+| ❌ `node` не найден | Установи Node.js с [nodejs.org](https://nodejs.org) |
+| ❌ `npm install` падает с ошибкой | Проверь интернет, отключи VPN/прокси |
+| ❌ Порт 3000 занят | Смени порт в `web-panel/config.json` (`panel.port`) |
+| ❌ Ошибка `EACCES` (Linux/macOS) | Не запускай через sudo. Используй порт >1024 или npx |
+| ❌ Боты не подключаются | Проверь host/port, версию Minecraft, не заблокирован ли IP |
+
+---
+
+## 📜 Лицензия
+
+```
+MIT License
 
 Copyright (c) 2024 Reikiiioi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files...
+```
+
+Полный текст лицензии в файле [LICENSE](LICENSE).
+
+---
+
+<div align="center">
+  <sub>Made with ❤️ by Reikiiioi</sub>
+</div>
